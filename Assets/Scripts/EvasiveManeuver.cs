@@ -13,7 +13,6 @@ public class EvasiveManeuver : MonoBehaviour
     public Boundary boundary;
 
     private float targetManeuver;
-    //private float currentSpeed;
 
     private new Rigidbody rigidbody;
     private void Awake()
@@ -23,8 +22,6 @@ public class EvasiveManeuver : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        Debug.LogFormat("Name {3} X {0} Y {1} Z {2}", rigidbody.velocity.x, rigidbody.velocity.y, rigidbody.velocity.z, gameObject.name);
-        //currentSpeed = rigidbody.velocity.z;
         StartCoroutine(Evade());
     }
 
