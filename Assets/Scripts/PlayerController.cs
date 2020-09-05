@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Schema;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +7,13 @@ public class PlayerController : MonoBehaviour
     public float tiltX;
     public float tiltZ;
     public Boundary boundary;
+
+    public GameObject shotPrefab;
+    private GameObject newShot;
+    public Transform shotSpawn;
+    public float fireDelta = 0.5f;
+    private float nextFire = 0.5f;
+    private float myTime = 0.0f;
 
     private new Rigidbody rigidbody;
     private void Awake()
@@ -35,6 +39,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        myTime = myTime + Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && myTime > nextFire)
+        {
+            nextFire = myTime + fireDelta;
+            newShot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as GameObject;
+
+            // create code here that animates the newShot
+
+            nextFire -= myTime;
+            myTime = 0.0f;
+        }
 
     }
 }
