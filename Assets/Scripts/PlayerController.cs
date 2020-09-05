@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     public float tiltX;
     public float tiltZ;
     public Boundary boundary;
-    private new Rigidbody rigidbody;
 
+    private new Rigidbody rigidbody;
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -31,6 +31,11 @@ public class PlayerController : MonoBehaviour
             Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax));
 
         rigidbody.rotation = Quaternion.Euler(rigidbody.velocity.z * tiltX, 0.0f, rigidbody.velocity.x * -tiltZ);
+    }
+
+    private void Update()
+    {
+
     }
 }
 
