@@ -8,10 +8,6 @@ public class Mover : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
         rigidbody.velocity = transform.forward * speed;
     }
 }

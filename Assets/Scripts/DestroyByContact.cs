@@ -25,7 +25,7 @@ public class DestroyByContact : MonoBehaviour
         if (other.CompareTag("Boundary") || other.CompareTag("Enemy"))
             return;
 
-        Debug.LogFormat("Enter this {0} other {1}", gameObject.name, other.gameObject.name);
+        //Debug.LogFormat("Enter this {0} other {1}", gameObject.name, other.gameObject.name);
 
         if (explosion != null)
         {

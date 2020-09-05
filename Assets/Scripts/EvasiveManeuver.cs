@@ -13,24 +13,25 @@ public class EvasiveManeuver : MonoBehaviour
     public Boundary boundary;
 
     private float targetManeuver;
-    private float currentSpeed;
+    //private float currentSpeed;
 
     private new Rigidbody rigidbody;
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        currentSpeed = rigidbody.velocity.z;
+        rigidbody = GetComponent<Rigidbody>();
+        Debug.LogFormat("Name {3} X {0} Y {1} Z {2}", rigidbody.velocity.x, rigidbody.velocity.y, rigidbody.velocity.z, gameObject.name);
+        //currentSpeed = rigidbody.velocity.z;
         StartCoroutine(Evade());
     }
 
     private void FixedUpdate()
     {
         float newManeuver = Mathf.MoveTowards(rigidbody.velocity.x, targetManeuver, Time.deltaTime * smoothing);
-        rigidbody.velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
+        rigidbody.velocity = new Vector3(newManeuver, 0.0f, rigidbody.velocity.z);
 
         rigidbody.position = new Vector3(
             Mathf.Clamp(rigidbody.position.x, boundary.xMin, boundary.xMax),
