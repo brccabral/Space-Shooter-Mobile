@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
     private float myTime = 0.0f;
 
     private new Rigidbody rigidbody;
+    private new AudioSource audio;
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -44,12 +46,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1") && myTime > nextFire)
         {
             nextFire = myTime + fireDelta;
-            newShot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as GameObject;
+            newShot = Instantiate(shotPrefab, shotSpawn.position, Quaternion.identity) as GameObject;
 
             // create code here that animates the newShot
 
             nextFire -= myTime;
             myTime = 0.0f;
+            audio.Play();
         }
 
     }
