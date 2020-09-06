@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private float nextFire = 0.5f;
     private float myTime = 0.0f;
 
+    private Quaternion calibrationQuaternion;
+
     private new Rigidbody rigidbody;
     private new AudioSource audio;
     private void Awake()
@@ -23,12 +25,21 @@ public class PlayerController : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        CalibrateAccellerometer();
+    }
+
     private void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
+        //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Vector3 accelerationRaw = Input.acceleration;
+        Vector3 acceleration = FixAcceleration(accelerationRaw);
+
+        Vector3 movement = new Vector3(acceleration.x, 0.0f, acceleration.y);
         rigidbody.velocity = movement * speed;
 
         rigidbody.position = new Vector3(
@@ -55,6 +66,21 @@ public class PlayerController : MonoBehaviour
             audio.Play();
         }
 
+    }
+
+    //Used to calibrate the Input.acceleration input
+    void CalibrateAccellerometer()
+    {
+        Vector3 accelarationSnapshot = Input.acceleration;
+        Quaternion rotateQuaternion = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, -1.0f), accelarationSnapshot);
+        calibrationQuaternion = Quaternion.Inverse(rotateQuaternion);
+    }
+
+    //Get the 'calibrated' value from the Input
+    Vector3 FixAcceleration(Vector3 acceleration)
+    {
+        Vector3 fixedAcceleration = calibrationQuaternion * acceleration;
+        return fixedAcceleration;
     }
 }
 
