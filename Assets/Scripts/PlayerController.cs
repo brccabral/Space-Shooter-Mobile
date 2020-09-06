@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private Quaternion calibrationQuaternion;
     public TouchPad touchPad;
+    public FireTrigger fireTrigger;
 
     private new Rigidbody rigidbody;
     private new AudioSource audio;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         myTime = myTime + Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && myTime > nextFire)
+        if (fireTrigger.GetCanFire() && myTime > nextFire)
         {
             nextFire = myTime + fireDelta;
             newShot = Instantiate(shotPrefab, shotSpawn.position, Quaternion.identity) as GameObject;
