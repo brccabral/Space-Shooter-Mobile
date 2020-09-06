@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float myTime = 0.0f;
 
     private Quaternion calibrationQuaternion;
+    public TouchPad touchPad;
 
     private new Rigidbody rigidbody;
     private new AudioSource audio;
@@ -32,14 +33,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // use keyboard to move player
         //float moveHorizontal = Input.GetAxis("Horizontal");
         //float moveVertical = Input.GetAxis("Vertical");
         //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        Vector3 accelerationRaw = Input.acceleration;
-        Vector3 acceleration = FixAcceleration(accelerationRaw);
+        // use phone accelerometer to move player, but it is weird
+        //Vector3 accelerationRaw = Input.acceleration;
+        //Vector3 acceleration = FixAcceleration(accelerationRaw);
+        //Vector3 movement = new Vector3(acceleration.x, 0.0f, acceleration.y);
 
-        Vector3 movement = new Vector3(acceleration.x, 0.0f, acceleration.y);
+        // use TouchPad from Movement Zone to move player
+        Vector2 direction = touchPad.GetDirection();
+        Vector3 movement = new Vector3(direction.x, 0.0f, direction.y);
+
+
         rigidbody.velocity = movement * speed;
 
         rigidbody.position = new Vector3(

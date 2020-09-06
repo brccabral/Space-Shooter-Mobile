@@ -1597,8 +1597,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7480757596528331331, guid: 6743958e580179f41b1c8c416a72f643,
         type: 3}
-      propertyPath: speed
-      value: 20
-      objectReference: {fileID: 0}
+      propertyPath: touchPad
+      value: 
+      objectReference: {fileID: 2027126655}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6743958e580179f41b1c8c416a72f643, type: 3}

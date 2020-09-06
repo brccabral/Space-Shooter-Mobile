@@ -7,6 +7,11 @@ using UnityEngine.EventSystems;
 public class TouchPad : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     private Vector2 origin;
+    private Vector2 direction;
+    private void Awake()
+    {
+        direction = Vector2.zero;
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         // Set our start finger point
@@ -17,12 +22,18 @@ public class TouchPad : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         // Get new finger position
         Vector2 currentPosition = eventData.position;
         Vector2 directionRaw = currentPosition - origin;
-        Vector2 direction = directionRaw.normalized;
-        Debug.Log(direction);
+        direction = directionRaw.normalized;
+        //Debug.Log(direction);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         // Reset everything
+        direction = Vector2.zero;
+    }
+
+    public Vector2 GetDirection()
+    {
+        return direction;
     }
 }
