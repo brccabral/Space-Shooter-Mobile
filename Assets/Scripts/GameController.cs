@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 
     public Text restartText;
     public Text gameOverText;
+    public Button restartButton;
 
     private bool gameOver;
     private bool restart;
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
         restart = false;
         gameOverText.text = "";
         restartText.text = "";
+        restartButton.gameObject.SetActive(false);
     }
 
     IEnumerator SpawnWaves()
@@ -50,7 +52,8 @@ public class GameController : MonoBehaviour
 
             if (gameOver)
             {
-                restartText.text = "Press 'R' for Restart";
+                //restartText.text = "Press 'R' for Restart";
+                restartButton.gameObject.SetActive(true);
                 restart = true;
                 break;
             }
@@ -74,6 +77,8 @@ public class GameController : MonoBehaviour
         gameOver = true;
     }
 
+    // we are not using the keyboard anymore
+/*
     private void Update()
     {
         if (restart)
@@ -83,5 +88,10 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
+    }*/
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
