@@ -6,8 +6,11 @@ using UnityEngine.EventSystems;
 
 public class TouchPad : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    public float smoothing;
+
     private Vector2 origin;
     private Vector2 direction;
+    private Vector2 smoothDirection;
     private void Awake()
     {
         direction = Vector2.zero;
@@ -34,6 +37,7 @@ public class TouchPad : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public Vector2 GetDirection()
     {
-        return direction;
+        smoothDirection = Vector2.MoveTowards(smoothDirection, direction, smoothing);
+        return smoothDirection;
     }
 }
